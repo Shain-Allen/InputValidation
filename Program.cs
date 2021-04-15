@@ -8,5 +8,10 @@ namespace InputValidation
         {
 
         }
+
+        char GradeConverter(int numberGrade)
+        {
+            
+        }
     }
 }
