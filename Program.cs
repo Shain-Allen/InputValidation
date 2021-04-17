@@ -12,7 +12,8 @@ namespace InputValidation
             uint seconds = 0;
             uint minutes = 0;
             uint hours = 0;
-            int min, max;
+            int min = 0;
+            int max = 0;
 
 
             //start of sum
@@ -63,6 +64,9 @@ namespace InputValidation
             {
                 answered = MinMax(out min, out max);
             }
+
+            Console.WriteLine($"min :{min}, Max:{max}");
+
         }
 
 
@@ -138,12 +142,57 @@ namespace InputValidation
         static bool MinMax(out int min, out int max)
         {
             string input = "";
-            int[] numbers = new int[] { };
+            int[] numbers = new int[1];
+            int numberIndex = 0;
 
             while (input != "end")
             {
+                input = Console.ReadLine();
 
+                if (numbers.Length - 1 == numberIndex)
+                {
+                    Array.Resize(ref numbers, numbers.Length * 2);
+                }
+                if (input != "end")
+                {
+                    try
+                    {
+                        numbers[numberIndex] = Int32.Parse(input);
+                        numberIndex++;
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Error: this was not a valid number, please input a whole number");
+                        min = 0;
+                        max = 0;
+                        return false;
+                    }
+                    catch (OverflowException)
+                    {
+                        Console.WriteLine("Error: this number was too big, please input a smaller number");
+                        min = 0;
+                        max = 0;
+                        return false;
+                    }
+                }
             }
+            min = numbers[0];
+            max = numbers[0];
+
+            for (int i = 0; i < numberIndex; i++)
+            {
+                if (min > numbers[i])
+                {
+                    min = numbers[i];
+                }
+
+                if (max < numbers[i])
+                {
+                    max = numbers[i];
+                }
+            }
+            return true;
+
         }
 
         static char GradeConverter(int numberGrade)
@@ -166,7 +215,5 @@ namespace InputValidation
                     return 'F';
             }
         }
-
-
     }
 }
