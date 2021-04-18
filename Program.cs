@@ -15,7 +15,7 @@ namespace InputValidation
             int min = 0;
             int max = 0;
             int location = 0;
-            int numberOfEvens = 1;
+            int numberOfEvens = 0;
             int numberOfOdds = 0;
             string input = "";
 
@@ -73,26 +73,19 @@ namespace InputValidation
             //even numbers from 0 to 200 starts here
             while (location != 201)
             {
-                if (location % 2 == 0 && numberOfEvens == 0)
+                if (location % 2 == 0)
                 {
-                    Console.Write($"{ location}, ");
                     numberOfEvens++;
+                    if (numberOfEvens % 10 != 0 && location != 200)
+                    {
+                        Console.Write($"{ location}, ");
+                    }
+                    else
+                    {
+                        Console.WriteLine(location);
+                    }
                 }
-                else if (location % 2 == 0 && numberOfEvens == 10 || location == 200)
-                {
-                    Console.WriteLine(location);
-                    numberOfEvens++;
-                }
-                else if (location % 2 == 0 && numberOfEvens % 10 != 0)
-                {
-                    Console.Write($"{ location}, ");
-                    numberOfEvens++;
-                }
-                else if (location % 2 == 0 && numberOfEvens % 10 == 0)
-                {
-                    Console.WriteLine(location);
-                    numberOfEvens++;
-                }
+
                 location++;
             }
 
@@ -102,15 +95,16 @@ namespace InputValidation
             {
                 if (location % 2 != 0)
                 {
+                    numberOfOdds++;
                     if (numberOfOdds % 25 != 0)
                     {
                         Console.Write($"{location}, ");
-                        numberOfOdds++;
+
                     }
                     else
                     {
                         Console.WriteLine($"{location}");
-                        numberOfOdds++;
+                        // numberOfOdds++;
                     }
                 }
                 location--;
@@ -127,7 +121,7 @@ namespace InputValidation
                 {
                     continue;
                 }
-                else
+                else if (input != "")
                 {
                     Console.WriteLine(GradeConverter(input));
                 }
@@ -280,31 +274,31 @@ namespace InputValidation
 
             if (grade > 100)
             {
-                return "A";
+                Console.WriteLine("Error: this grade is invalid");
+                return "";
             }
 
             if (grade < 0)
             {
-                return "F";
+                Console.WriteLine("Error: this grade is invalid");
+                return "";
             }
 
             switch (grade)
             {
-                case 100:
-                case 91:
+                case int n when (n >= 91):
                     return "A";
-                case 90:
-                case 81:
+                case int n when (n >= 81):
                     return "B";
-                case 80:
-                case 71:
+                case int n when (n >= 71):
                     return "C";
-                case 70:
-                case 61:
+                case int n when (n >= 61):
                     return "D";
-                default:
+                case int n when (n <= 60):
                     return "F";
             }
+
+            return "";
         }
     }
 }
