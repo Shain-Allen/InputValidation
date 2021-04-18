@@ -14,6 +14,9 @@ namespace InputValidation
             uint hours = 0;
             int min = 0;
             int max = 0;
+            int location = 0;
+            int numberOfEvens = 1;
+            int numberOfOdds = 0;
 
 
             //start of sum
@@ -66,6 +69,54 @@ namespace InputValidation
             }
 
             Console.WriteLine($"min :{min}, Max:{max}");
+
+            //even numbers from 0 to 200 starts here
+            while (location != 201)
+            {
+                if (location % 2 == 0 && numberOfEvens == 0)
+                {
+                    Console.Write($"{ location}, ");
+                    numberOfEvens++;
+                }
+                else if (location % 2 == 0 && numberOfEvens == 10 || location == 200)
+                {
+                    Console.WriteLine(location);
+                    numberOfEvens++;
+                }
+                else if (location % 2 == 0 && numberOfEvens % 10 != 0)
+                {
+                    Console.Write($"{ location}, ");
+                    numberOfEvens++;
+                }
+                else if (location % 2 == 0 && numberOfEvens % 10 == 0)
+                {
+                    Console.WriteLine(location);
+                    numberOfEvens++;
+                }
+                location++;
+            }
+
+            //odd number from 200 to 0 decending order.
+            //location = 200;
+            do
+            {
+                if (location % 2 != 0)
+                {
+                    if (numberOfOdds % 25 != 0)
+                    {
+                        Console.Write($"{location}, ");
+                        numberOfOdds++;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{location}");
+                        numberOfOdds++;
+                    }
+                }
+                location--;
+            } while (location != 0);
+
+            //start of grade calculations
 
         }
 
