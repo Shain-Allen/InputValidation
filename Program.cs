@@ -104,7 +104,6 @@ namespace InputValidation
                     else
                     {
                         Console.WriteLine($"{location}");
-                        // numberOfOdds++;
                     }
                 }
                 location--;
