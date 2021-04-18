@@ -17,7 +17,7 @@ namespace InputValidation
             int location = 0;
             int numberOfEvens = 1;
             int numberOfOdds = 0;
-
+            string input = "";
 
             //start of sum
             Console.WriteLine("please input 3 whole numbers that you wish to get the sum of. hit enter after each number");
@@ -97,7 +97,7 @@ namespace InputValidation
             }
 
             //odd number from 200 to 0 decending order.
-            //location = 200;
+            location = 200;
             do
             {
                 if (location % 2 != 0)
@@ -117,7 +117,21 @@ namespace InputValidation
             } while (location != 0);
 
             //start of grade calculations
+            Console.WriteLine("please enter a test score between 0 and 100 to convert to a letter grade. once you are done converting grades end \"quit\"");
+            while (input != "quit")
+            {
+                input = Console.ReadLine();
+                input = input.ToLower();
 
+                if (input == "quit")
+                {
+                    continue;
+                }
+                else
+                {
+                    Console.WriteLine(GradeConverter(input));
+                }
+            }
         }
 
 
@@ -246,24 +260,50 @@ namespace InputValidation
 
         }
 
-        static char GradeConverter(int numberGrade)
+        static string GradeConverter(string numberGrade)
         {
-            switch (numberGrade)
+            int grade = 0;
+            try
+            {
+                grade = Int32.Parse(numberGrade);
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Error: this was not a valid grade, please input a whole number");
+                return "";
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("Error: this grade was too big, please input a smaller grade");
+                return "";
+            }
+
+            if (grade > 100)
+            {
+                return "A";
+            }
+
+            if (grade < 0)
+            {
+                return "F";
+            }
+
+            switch (grade)
             {
                 case 100:
                 case 91:
-                    return 'A';
+                    return "A";
                 case 90:
                 case 81:
-                    return 'B';
+                    return "B";
                 case 80:
                 case 71:
-                    return 'C';
+                    return "C";
                 case 70:
                 case 61:
-                    return 'D';
+                    return "D";
                 default:
-                    return 'F';
+                    return "F";
             }
         }
     }
