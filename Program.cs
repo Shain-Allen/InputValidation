@@ -151,7 +151,17 @@ namespace InputValidation
                 return false;
             }
 
-            result = (((4 * MathF.Pow(x, 3)) + (5 * x)) - 3);
+            try
+            {
+                result = (((4 * MathF.Pow(x, 3)) + (5 * x)) - 3);
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("Error: resualting number is too large to be stored, please try a smaller value for X");
+                result = 0;
+                return false;
+            }
+
             return true;
         }
 
